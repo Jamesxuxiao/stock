@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  jupyter:
+    image: james/jupyter  # Replace this with the correct image name if not built from the Dockerfile
+    build: .
+    container_name: jupyter-jupyter-1
+    environment:
+      - NB_UID=1000
+      - NB_GID=100
+    ports:
+      - "10000:8888"
+    volumes:
+      - C:/Document/eLearning/Notebook:/home/jovyan/work  # Make sure to adjust the volume paths as needed
+    networks:
+      - jupyter_default
+    user: "${NB_UID}:${NB_GID}"  # Set the user and group to match the UID and GID
+
+    # Ensure that the container starts with the necessary group
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: start.sh jupyter lab
+
+    # Add users group to the container to avoid permission errors
+    group_add:
+      - users
+
+networks:
+  jupyter_default:
+    driver: bridge
