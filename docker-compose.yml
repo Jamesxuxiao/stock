@@ -1,8 +1,6 @@
-version: "3.8"
-
 services:
   jupyter:
-    image: james/jupyter  # Replace this with the correct image name if not built from the Dockerfile
+    image: stock-jupyter  # Local build image name
     build: .
     container_name: jupyter-jupyter-1
     environment:
@@ -11,7 +9,7 @@ services:
     ports:
       - "10000:8888"
     volumes:
-      - C:/Document/eLearning/Notebook:/home/jovyan/work  # Make sure to adjust the volume paths as needed
+      - C:/Documents/eLearning/Notebook:/home/jovyan/work  # Make sure to adjust the volume paths as needed
     networks:
       - jupyter_default
     user: "${NB_UID}:${NB_GID}"  # Set the user and group to match the UID and GID
